@@ -27,7 +27,10 @@ public class Department {
 		if(of != null && !of.getCode().equals(c)) {	
 			while(of.getNextOffice() != null && !of.getCode().equals(c)) {
 				of = of.getNextOffice();			
-			}		
+			}
+			if(!of.getCode().equals(c)) {
+				of = null;
+			}
 		}				
 		return of;
 	}
@@ -61,8 +64,22 @@ public class Department {
 		//Missing body...
 	}
 	
-	public void reomveEvenFloors() {
-		//Missing body...
-	}
-	
+	public void removeEvenFloors() {
+		
+		int counter = 0;
+		
+		if(firstOffice != null) {
+			firstOffice = firstOffice.getNextOffice();
+			counter++;
+			Office of = firstOffice;
+			while(of.getNextOffice() != null) {
+				of = of.getNextOffice();
+				counter++;
+				if(counter%2 == 0) {
+					of.setNextOffice(of.getNextOffice().getNextOffice());
+					counter++;
+				}				
+			}
+		}			
+	}	
 }
