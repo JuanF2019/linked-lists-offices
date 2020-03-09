@@ -65,6 +65,29 @@ public class Department {
 	}
 	
 	public void removeEvenFloors() {
+		Office prevOf = null;
+		Office of = firstOffice;
+		
+		if(of != null) {				
+			while(of.getNextOffice() != null) {
+				if(of.getFloor()%2 == 0) {
+					if(of.getNextOffice() == null) {
+						prevOf.setNextOffice(null);
+					}
+					else {
+						prevOf.setNextOffice(of.getNextOffice());
+					}	
+					of = of.getNextOffice();
+				}
+				else {
+					prevOf = of;
+					of = of.getNextOffice();
+				}
+			}			
+		}		
+	}
+	
+	public void removeEvenOffices() {
 		
 		int counter = 0;
 		
