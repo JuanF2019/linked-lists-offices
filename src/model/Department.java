@@ -60,8 +60,43 @@ public class Department {
 		return of;
 	}
 	
-	public void sortByCode() {
-		//Missing body...
+	public void sortByCode() {//Bubble sort	
+		boolean exchange = false;
+		if(firstOffice != null && firstOffice.getNextOffice() != null) {			
+			 do{				
+				Office current = firstOffice;
+				Office prev = null;
+				exchange = false;
+				
+				if(current.getCode().compareTo(current.getNextOffice().getCode()) > 0) {
+					firstOffice = firstOffice.getNextOffice();
+					current.setNextOffice(firstOffice.getNextOffice());
+					firstOffice.setNextOffice(current);
+					prev = firstOffice;					
+					exchange = true;					
+				}
+				else {
+					if(firstOffice.getNextOffice() != null) {
+						prev = firstOffice;
+						current = firstOffice.getNextOffice();
+					}					
+				}
+				
+				while(current.getNextOffice() != null) {	
+					
+					if(current.getCode().compareTo(current.getNextOffice().getCode()) > 0) {
+						prev.setNextOffice(current.getNextOffice());
+						current.setNextOffice(current.getNextOffice().getNextOffice());
+						prev.getNextOffice().setNextOffice(current);
+						exchange = true;						
+					}
+					else {
+						prev = current;
+						current = current.getNextOffice();						
+					}					
+				}				
+			} while(exchange);	
+		}
 	}
 	
 	public void removeEvenFloors() {
@@ -104,5 +139,9 @@ public class Department {
 				}				
 			}
 		}			
+	}
+
+	public Office getFirstOffice() {
+		return firstOffice;
 	}	
 }
